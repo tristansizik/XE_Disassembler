@@ -40,12 +40,12 @@ const struct SIC_Reg SIC_Regs [] = {
     { "A", "0" },
     { "X", "1" },
     { "L", "2" },
-    { "PC", "8" },
-    { "SW", "9" },
     { "B", "3" },
     { "S", "4" },
     { "T", "5" },
-    { "F", "6" }
+    { "F", "6" },
+    { "PC", "8" },
+    { "SW", "9" }
 };
 
 // Take in a register code as a string and return the name of that register
