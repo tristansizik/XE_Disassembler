@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1555371985 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\converter.cpp
+	<stdlib.h>
+	"Converter.h"
+
+1555364895 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\converter.h
+	<string.h>
+	<stdio.h>
+	<iostream>
+	<sstream>
+
+1555371944 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\main.cpp
+	<iostream>
+	<stdio.h>
+	<iostream>
+	<stdlib.h>
+	<sstream>
+	"Converter.h"
+
