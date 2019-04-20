@@ -2,8 +2,8 @@ CC = g++
 CFLAGS = -g
 LDFLAGS = -lm
 
-dasm : main.o Opcode.o Converter.o SicDisassembler.o
-	${CC} ${CFLAGS} Opcode.o Converter.o SicDisassembler.o main.o ${LDFLAGS} -o dasm
+xed : main.o Opcode.o Converter.o SicDisassembler.o
+	${CC} ${CFLAGS} Opcode.o Converter.o SicDisassembler.o main.o ${LDFLAGS} -o xed
 
 Opcode.o : Opcode.cpp
 	${CC} ${CFLAGS} -c Opcode.cpp
@@ -18,4 +18,4 @@ main.o : main.cpp
 	${CC} ${CFLAGS} -c main.cpp
 
 clean: 
-rm -f dasm *.o
+rm -f xed *.o
