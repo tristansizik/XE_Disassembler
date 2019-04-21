@@ -1,4 +1,4 @@
-#include "Opcode.h"
+#include "OpGen.h"
 
 // List out all of the instructions, opcodes, and formats
 struct op_code {

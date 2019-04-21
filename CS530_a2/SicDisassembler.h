@@ -1,7 +1,7 @@
 #ifndef __Assignment2__SicDisassembler__
 #define __Assignment2__SicDisassembler__
 
-#include "Opcode.h"
+#include "OpGen.h"
 
 #include <fstream>
 #include <vector>
