@@ -57,23 +57,43 @@ void Disassemble::readFile(){
 void Disassemble::run(){
     /*-------------Split symbol and address then assign them to map----------------*/
     unsigned int i;
-    printf("%d",symContent.size()));
+    bool isSym = true;
+    //printf("%c",symContent[2][16]);
 
     if (symContent.size() > 0) {
-        for (i = 0; i < symContent.size()-1; i++) {
-            if (symContent[i].length() > 1 && symContent[i][16] != 'r' && symContent[i][0] != '-')
+        for (i = 2; i < symContent.size()-1; i++) {
+            if (symContent[i].length() > 1 && symContent[i][0] != '-')
             {
-                string symbol = symContent[i].substr(0,6); // take the symbol names
-
-                // take the address of the symbol table and convert it to in
-                int symAddr = Converter::hexToInt(symContent[i].substr(16,4));
-
-                if (symbol[0] == '=')               // encounter literal
-                    litElement[symAddr] = symbol;   // store literals in a difference vector
-                else {
+                if(symContent[i].substr(0,4)!= "Name" && isSym == true)
+                {
+                    string symbol = symContent[i].substr(0,6); // take the symbol names
+                    symbol += symContent[i].substr(16,1);
+                    // take the address of the symbol table and convert it to in
+                    int symAddr = Converter::hexToInt(symContent[i].substr(8,6));
                     symElement[symAddr] = symbol;
                     directive[symAddr] = symbol;
                 }
+                else if(isSym == false)
+                {
+                    isSym = false;
+                    string symbol = symContent[i].substr(0,6);
+                    symbol += symContent[i].substr(8,6);
+                    symbol += symContent[i].substr(16,6);
+                    int symAddr = Converter::hexToInt(symContent[i].substr(24,6));
+                    litElement[symAddr] = symbol;
+
+                }
+                else
+                {
+                    isSym = false;
+                }
+
+            //    if (symbol[0] == '=')               // encounter literal
+            //        litElement[symAddr] = symbol;   // store literals in a difference vector
+            //    else {
+            //        symElement[symAddr] = symbol;
+            //        directive[symAddr] = symbol;
+
             }
         } // end For loop
     }
