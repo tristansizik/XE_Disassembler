@@ -1,0 +1,46 @@
+PROJECT 2 DEVELOPMENT
+
+
+Specification:
+
+- Program must compile with a "gcc" or "g++" call
+
+- User input? -> SIC/XE object file & symbol file
+// symbol file includes SYMTAB & LITTAB
+
+- Program Output? -> SIC/XE source file & listing file
+
+Design:
+
+***WHAT DO WE NEED?***
+
+- numeric converters...
+(hex to int, hex to bin, bin to hex)
+// these results may need to be handled as strings
+
+- SIC/XE registers
+
+- a complete opcode table (for instructions & formats)
+// use a structure?
+
+*for disassembling...*
+
+- a way to interate through SYMTAB & LITTAB
+// use vectors?  or maps?
+
+- a way to interate through records in object code
+// vectors again?
+
+- a way to determine addresses & lengths based on format type
+// store displacement/address?
+
+- a way to determine addressing modes
+(ALSO, calculate target addresses)
+(AND, add proper addressing mode symbol)
+// array for "nixbpe" flags?
+
+
+
+
+
+
