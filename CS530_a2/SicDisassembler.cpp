@@ -64,7 +64,7 @@ void Disassemble::run(){
         for (i = 2; i < symContent.size()-1; i++) {
             if (symContent[i].length() > 1 && symContent[i][0] != '-')
             {
-                if(symContent[i].substr(0,4)!= "Name" && isSym == true)
+                if(symContent[i].substr(0,4)!= "Name" && isSym == true)     //start with symtab, then once you reach "name" to initialize littab we switch over
                 {
                     string symbol = symContent[i].substr(0,6); // take the symbol names
                     symbol += symContent[i].substr(16,1);
@@ -87,12 +87,6 @@ void Disassemble::run(){
                 {
                     isSym = false;
                 }
-
-            //    if (symbol[0] == '=')               // encounter literal
-            //        litElement[symAddr] = symbol;   // store literals in a difference vector
-            //    else {
-            //        symElement[symAddr] = symbol;
-            //        directive[symAddr] = symbol;
 
             }
         } // end For loop
