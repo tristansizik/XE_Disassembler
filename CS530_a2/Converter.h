@@ -15,4 +15,4 @@ public:
     static string binToHex(string value);
     static string intToString(int value);
 };
-#endif // __Converter__
+#endif // Definition for Converter Header File

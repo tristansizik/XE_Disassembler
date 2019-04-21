@@ -1,4 +1,5 @@
-
+#define MAX_INPUT 129
+#include <stdlib.h>
 #include "SicDisassembler.h"
 
 void Disassemble::readFile(){
@@ -8,12 +9,14 @@ void Disassemble::readFile(){
     fileName =  new char[MAX_INPUT]();
     string line;
 
-    printf("An Le - Ray Luu - masc0720\n");
-    printf("SIC Dis-assembler \n");
-    printf("Enter your object file name: \n");
+    printf("~~ Tristan Sizik\n");
+    printf("&& Sean Paz\n");
+    printf("&& Derek Barbosa 's ");
+    printf("SIC File Dis-assembler \n");
+    printf("Enter object file name: \n");
 
     // Read file name
-    if (fgets(input, MAX_INPUT, stdin) != NULL)
+    if (fgets(input, MAX_INPUT, stdin) != NULL)  //points to input,
         sscanf(input, "%s", fileName);
     else
         printf("Please input file name.\n");
@@ -53,16 +56,16 @@ void Disassemble::readFile(){
 
 void Disassemble::run(){
     /*-------------Split symbol and address then assign them to map----------------*/
+    unsigned int i;
+
     if (symContent.size() > 0) {
-        for (int i = 0; i < symContent.size()-1; i++) {
-            if (symContent[i].length() > 1
-                && symContent[i][19] != 'r'
-                && symContent[i][0] != '-')
+        for (i = 0; i < symContent.size()-1; i++) {
+            if (symContent[i].length() > 1 && symContent[i][19] != 'r' && symContent[i][0] != '-')
             {
                 string symbol = symContent[i].substr(0,6); // take the symbol names
 
                 // take the address of the symbol table and convert it to in
-                int symAddr = Converter::stringHexToInt(symContent[i].substr(16,4));
+                int symAddr = Converter::hexToInt(symContent[i].substr(16,4));
 
                 if (symbol[0] == '=')               // encounter literal
                     litElement[symAddr] = symbol;   // store literals in a difference vector
@@ -99,8 +102,8 @@ void Disassemble::run(){
     int lastAddr = 0;
     if (objContent[0][0] == 'H') {
         string pName = objContent[0].substr(1, 6); // name of the object file
-        int hAddr = Converter::stringHexToInt(objContent[0].substr(7, 6)); // address
-        int progLength = Converter::stringHexToInt(objContent[0].substr(13, 6)); // length of the object file
+        int hAddr = Converter::hexToInt(objContent[0].substr(7, 6)); // address
+        int progLength = Converter::hexToInt(objContent[0].substr(13, 6)); // length of the object file
         lastAddr = hAddr + progLength;
         fprintf(outFile,"%-9s %-11s %04x \n", pName.c_str(), "START", hAddr); // write to file.sic
     }
@@ -111,11 +114,11 @@ void Disassemble::run(){
 
     // If there is H record, then dis-assemble other records.
     // Text Record:
-    for (int i = 1; i < objContent.size(); i++) {
+    for (i = 1; i < objContent.size(); i++) {
         if (objContent[i][0] == 'T') {
             //--------LOOP INSTRUCTIONS FROM HERE:---------------
-            int tAddr = Converter::stringHexToInt(objContent[i].substr(1,6));   // text record address
-            int tLength = Converter::stringHexToInt(objContent[i].substr(7,2)); // text record length
+            int tAddr = Converter::hexToInt(objContent[i].substr(1,6));   // text record address
+            int tLength = Converter::hexToInt(objContent[i].substr(7,2)); // text record length
             int lastAddr = tAddr + tLength;
             int start = 9;
             int jump = 0;
@@ -135,9 +138,9 @@ void Disassemble::run(){
 
                 string mnemonic = data[0];
                 string skipDigits = data[1];
-                jump = Converter::stringHexToInt(skipDigits);
+                jump = Converter::hexToInt(skipDigits);
                 string option = data[3];
-                int format = Converter::stringHexToInt(data[4]);
+                int format = Converter::hexToInt(data[4]);
 
                 // Check if address in symtab and littab
                 string hasSym = ""; // initialize string to null
@@ -194,11 +197,11 @@ void Disassemble::run(){
                         // Store Base address
                         if (format == 4) {
                             string sBaseAddr = objContent[i].substr(start + 4, 4);
-                            baseAddr = Converter::stringHexToInt(sBaseAddr);
+                            baseAddr = Converter::hexToInt(sBaseAddr);
                         }
                         if (format == 3) {
                             string sDisp = objContent[i].substr(start + 3, 3);
-                            int disp = Converter::stringHexToInt(sDisp);
+                            int disp = Converter::hexToInt(sDisp);
                             baseAddr = disp + tAddr;
                         }
                     }
@@ -215,7 +218,7 @@ void Disassemble::run(){
 
     // Variable Declaration:
     unsigned long size = directive.size();
-    for (int i = 0; i < size; i++) {
+    for (i = 0; i < size; i++) {
         int address = directive.begin()-> first;
         string label = directive.begin()-> second;
         directive.erase(address);
@@ -238,9 +241,9 @@ void Disassemble::run(){
     }
 
     // End Record:
-    for (int i = 1; i < objContent.size(); i++) {
+    for (i = 1; i < objContent.size(); i++) {
         if (objContent[i][0] == 'E') {
-            int loadAddr = Converter::stringHexToInt(objContent[i].substr(1, 6));
+            int loadAddr = Converter::hexToInt(objContent[i].substr(1, 6));
             string symbol = symElement.find(loadAddr)->second;
             fprintf(outFile, "%-9s %-11s %s \n", "", "END", symbol.c_str());
         }
@@ -267,7 +270,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
     string first2 = objContent[lineNumber].substr(start,2);
 
     // Get real opcode
-    string opcode = check->get_opcode(first2);
+    string opcode = check->getOpcode(first2);
 
     // Validate opcode if it's in optab then return its index in optab. If not, return -1
     int optabIndex = check->validateOpcode(opcode);
@@ -279,12 +282,12 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
         if (format.length() > 1) {
             // Get NIXBPE
             string stringNixbpe1 = objContent[lineNumber].substr(start+1,1);
-            int intNixbpe1 = Converter::stringHexToInt(stringNixbpe1);
-            string binNixbpe1 = Converter::hexToStringBinary(intNixbpe1);
+            int intNixbpe1 = Converter::hexToInt(stringNixbpe1);
+            string binNixbpe1 = Converter::hexToStringBin(intNixbpe1);
 
             string stringNixbpe2 = objContent[lineNumber].substr(start+2,1);
-            int intNixbpe2 = Converter::stringHexToInt(stringNixbpe2);
-            string binNixbpe2 = Converter::hexToStringBinary(intNixbpe2);
+            int intNixbpe2 = Converter::hexToInt(stringNixbpe2);
+            string binNixbpe2 = Converter::hexToStringBin(intNixbpe2);
 
             string nixbpe = binNixbpe1.substr(2,2);
             nixbpe = strcat((char *)nixbpe.c_str(), (char *)binNixbpe2.c_str());
@@ -295,7 +298,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
                 data[1] = "8";
 
                 string sDirectAddr = objContent[lineNumber].substr(start+4, 4);
-                int directAddr = Converter::stringHexToInt(sDirectAddr);
+                int directAddr = Converter::hexToInt(sDirectAddr);
                 string symbol = symElement.find(directAddr)->second;
 
                 if(nixbpe[0] == '1' && nixbpe[1] == '1' && nixbpe[2] == '1')
@@ -309,7 +312,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
                     if (symElement.find(directAddr) != symElement.end())
                         symbol = symElement.find(directAddr)->second;
                     else
-                        symbol = Converter::integerToString(directAddr);
+                        symbol = Converter::intToString(directAddr);
 
                     symbol = "#" + symbol;
                 }
@@ -334,7 +337,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
                     || sDisp[0] == 'F') {
                     sDisp = "0x" + sDisp;
                 }
-                int disp = Converter::stringHexToInt(sDisp);
+                int disp = Converter::hexToInt(sDisp);
                 string symbol;
                 string originalSym;
                 int targetAddr = 0;
@@ -427,7 +430,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
                             symbol = symElement.find(targetAddr)->second;
                             originalSym = symbol;
                         } else {
-                            symbol = Converter::integerToString(disp);
+                            symbol = Converter::intToString(disp);
                             originalSym = symbol;
                         }
                         symbol = "#" + symbol;
@@ -438,7 +441,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
                             symbol = symElement.find(targetAddr)->second;
                             originalSym = symbol;
                         } else {
-                            symbol = Converter::integerToString(disp);
+                            symbol = Converter::intToString(disp);
                             originalSym = symbol;
                         }
                         symbol = "#" + symbol;
@@ -451,7 +454,7 @@ vector<string> Disassemble::printFormat(int lineNumber, int start, int tAddr, in
                         symbol = symElement.find(targetAddr)->second;
                         originalSym = symbol;
                     } else {
-                        symbol = Converter::integerToString(disp);
+                        symbol = Converter::intToString(disp);
                         originalSym = symbol;
                     }
                     symbol = "#" + symbol;

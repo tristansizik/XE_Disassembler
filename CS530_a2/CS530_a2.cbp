@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Converter.cpp" />
+		<Unit filename="Converter.h" />
+		<Unit filename="OpGen.cpp" />
+		<Unit filename="OpGen.h" />
+		<Unit filename="SicDisassembler.cpp" />
+		<Unit filename="SicDisassembler.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

@@ -1,6 +1,7 @@
-#include "Opcode.h"
+#include "OpGen.h"
 
-// List out all of the instructions, opcodes, and formats
+// Struct composed of OpCode variances, with their name, opcode, and format
+// in order to create a table full of these types and organize our possible opcodes
 struct op_code {
     string name;
     string opcode;
@@ -30,7 +31,8 @@ const struct op_code opcodeTable [] = {
     { "TIXR", "B8", "2" },        { "WD", "DC", "3/4" }
 };
 
-// List out name of the registers, and codes
+// Struct composed of Register Name with their number in respect
+// used in order to organize our struct full of all SIC Registers
 struct SIC_Reg{
     string name;
     string code;
@@ -48,10 +50,10 @@ const struct SIC_Reg SIC_Regs [] = {
     { "SW", "9" }
 };
 
-// Take in a register code as a string and return the name of that register
-string Opcode::getRegister(string register_code){
+// Takes in the string of # of Register and returns the Name of the Register
+string Opcode::getRegister(string registerHex){
     for (int i = 0; i < 9; i++) {
-        if (SIC_Regs[i].code == register_code) {
+        if (SIC_Regs[i].code == registerHex) {
             return SIC_Regs[i].name;
         }
     }
@@ -60,51 +62,50 @@ string Opcode::getRegister(string register_code){
 
 // Take the first 2 hex digits of the instruction as string
 // Return the true opcode as string.
-string Opcode::get_opcode(string opcode) {
-    string first_digit_str;
-    string str_last_digit;
-    int int_last_digit;
-    string binary_last_digit;
-    string binary_str_with_n_and_i_flag_off;
-    string first_2_binary_digit;
-    string last_digit_opcode_in_str;
-    string both_opcode_digit;
+string Opcode::getOpcode(string opcode) {
+    int    secondInt;
+    string first2Bin;
+    string firstHex;
+    string mod2HexBin;
+    string secondBin;
+    string secondHex;
+    string translated_opcode;
+    string translatedSecondHex;
 
-    first_digit_str = opcode.substr(0,1);   // grab the first digit of the opcode
-    str_last_digit = opcode.substr(1,1);    // grab the secondd digit of the opcode
+    firstHex = opcode.substr(0,1);   // grab the first digit of the opcode
+    secondHex = opcode.substr(1,1);    // grab the secondd digit of the opcode
 
-    int_last_digit = Converter::stringHexToInt(str_last_digit);             // convert the last string digit to integer
-    binary_last_digit = Converter::hexToStringBinary(int_last_digit);       // convert the last integer digit to 4 a binary number
+    secondInt = Converter::hexToInt(secondHex);             // convert the last string digit to integer
+    secondBin = Converter::hexToStringBin(secondInt);       // convert the last integer digit to 4 a binary number
 
-    first_2_binary_digit = (char *)binary_last_digit.substr(0,2).c_str();   // grab the first 2 binary digits
-    binary_str_with_n_and_i_flag_off = strcat((char *)first_2_binary_digit.c_str(), "00"); // combine the first 2 binary digit with "00"
-    last_digit_opcode_in_str = Converter::stringBinToHex(binary_str_with_n_and_i_flag_off);// convert the combined 4 binary digits to hex
+    first2Bin = (char *)secondBin.substr(0,2).c_str();   // grab the first 2 binary digits
+    mod2HexBin = strcat((char *)first2Bin.c_str(), "00"); // combine the first 2 binary digit with "00"
+    translatedSecondHex = Converter::binToHex(mod2HexBin);// convert the combined 4 binary digits to hex
 
-    both_opcode_digit = strcat((char *)first_digit_str.c_str(),(char *)last_digit_opcode_in_str.c_str()); // combime both opcode digits after conversion
+    translated_opcode = strcat((char *)firstHex.c_str(),(char *)translatedSecondHex.c_str()); // combime both opcode digits after conversion
 
-    return both_opcode_digit;
+    return translated_opcode;
 }
 
 // Return index of the opcode if it is in the optab. -1 if its not
-int Opcode::validateOpcode(string opcode){
-    for (int i = 0; i <= 56; i++) {
-        if (opcodeTable[i].opcode.compare(opcode) == 0) {
+int Opcode::validateOpcode(string value){
+    for (int i = 0; i <= 57; i++) {
+        if (opcodeTable[i].opcode.compare(value) == 0) {
             return i;
         }
     }
     return -1;
 }
-
-// return the instruction given the index of the opcode table
-string Opcode::getInstruction(int optabIndex){
-    string instruction;
-    instruction = opcodeTable[optabIndex].name;
-    return instruction;
+// Returns the Format of Opcode with given location of Opcode inputted
+string Opcode::getFormat(int optabIndex){
+    string formatType;
+    formatType = opcodeTable[optabIndex].format;
+    return formatType;
 }
 
-// return the format given the index of the opcode table
-string Opcode::getFormat(int optabIndex){
-    string format;
-    format = opcodeTable[optabIndex].format;
-    return format;
+// Returns the Instruction name of the Opcode with given location of Opcode inputted
+string Opcode::getInstruction(int optabIndex){
+    string instructionName;
+    instructionName = opcodeTable[optabIndex].name;
+    return instructionName;
 }

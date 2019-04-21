@@ -3,17 +3,35 @@
 	<stdlib.h>
 	"Converter.h"
 
-1555364895 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\converter.h
+1555830895 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\converter.h
 	<string.h>
 	<stdio.h>
 	<iostream>
 	<sstream>
 
-1555372043 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\main.cpp
+1555831170 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\main.cpp
 	<iostream>
 	<stdio.h>
 	<iostream>
 	<stdlib.h>
 	<sstream>
 	"Converter.h"
+	"OpGen.h"
+	"SicDisassembler.h"
+
+1555831986 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\opgen.h
+	"Converter.h"
+
+1555832028 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\opgen.cpp
+	"OpGen.h"
+
+1555829798 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\sicdisassembler.h
+	"OpGen.h"
+	<fstream>
+	<vector>
+	<map>
+
+1555830034 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\sicdisassembler.cpp
+	<stdlib.h>
+	"SicDisassembler.h"
 
