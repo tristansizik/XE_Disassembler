@@ -5,11 +5,11 @@
 
 class Opcode{
 public:
-    static string get_opcode(string opcode);
-    static int validateOpcode(string opcode);
-    static string getInstruction(int optabIndex);
+    static int validateOpcode(string value);
+    static string getOpcode(string opcode);
+    static string getRegister(string registerHex);
     static string getFormat(int optabIndex);
-    static string getRegister(string register_code);
+    static string getInstruction(int optabIndex);
 };
 
 #endif

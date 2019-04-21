@@ -10,17 +10,17 @@
 class Disassemble{
 
 public:
-    void readFile();
     void run();
+    void readFile();
 
     char *fileName;
 
 private:
     vector<string> printFormat(int lineNumber, int start, int tAddr, int baseAddr);
-    vector<string> objContent;
     vector<string> symContent;
+    vector<string> objContent;
     map<int,string> litElement, symElement, directive;
     map<int,string>::iterator it;
 };
 
-#endif
+#endif  //SicDisassembler Header File Definition
