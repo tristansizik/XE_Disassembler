@@ -1,4 +1,4 @@
-#define MAX_INPUT 129
+#define MAX_INPUT 20
 #include <stdlib.h>
 #include "SicDisassembler.h"
 
@@ -30,7 +30,7 @@ void Disassemble::readFile(){
     // Open obj file and assign each line to vector objContent.
     ifstream objfile(objName);
     if (objfile.is_open()) {
-        while (objfile.good()) {
+        while (objfile.good()) {        //no error flags set in vector, continue through line
             getline(objfile, line);
             objContent.push_back(line);
         }
@@ -57,10 +57,11 @@ void Disassemble::readFile(){
 void Disassemble::run(){
     /*-------------Split symbol and address then assign them to map----------------*/
     unsigned int i;
+    printf("%d",symContent.size()));
 
     if (symContent.size() > 0) {
         for (i = 0; i < symContent.size()-1; i++) {
-            if (symContent[i].length() > 1 && symContent[i][19] != 'r' && symContent[i][0] != '-')
+            if (symContent[i].length() > 1 && symContent[i][16] != 'r' && symContent[i][0] != '-')
             {
                 string symbol = symContent[i].substr(0,6); // take the symbol names
 

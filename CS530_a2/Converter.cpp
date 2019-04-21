@@ -10,11 +10,12 @@ int Converter::hexToInt(string value){
     for(int i = value.length() - 1; i >= 0; --i)
     {
         num += alpha.find(toupper(value[i])) * pow16;
-        if(num < 0)
+        /*if(num < 0)
         {
             printf("Error: Unknown Hex Value");
             exit(EXIT_FAILURE);
         }
+        */
         pow16 *= 16;
     }
     return num;
