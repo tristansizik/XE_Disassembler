@@ -2,10 +2,10 @@ CC = g++
 CFLAGS = -g
 LDFLAGS = -lm
 
-xed : main.o Opcode.o Converter.o SicDisassembler.o
-	${CC} ${CFLAGS} Opcode.o Converter.o SicDisassembler.o main.o ${LDFLAGS} -o xed
+xed : main.o OpGen.o Converter.o SicDisassembler.o
+	${CC} ${CFLAGS} OpGen.o Converter.o SicDisassembler.o main.o ${LDFLAGS} -o xed
 
-Opcode.o : Opcode.cpp
+OpGen.o : OpGen.cpp
 	${CC} ${CFLAGS} -c Opcode.cpp
 
 Converter.o : Converter.cpp 
