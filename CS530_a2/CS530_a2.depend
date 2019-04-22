@@ -22,16 +22,16 @@
 1555832154 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\opgen.h
 	"Converter.h"
 
-1555832028 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\opgen.cpp
-	"OpGen.h"
-
 1555829798 c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\sicdisassembler.h
 	"OpGen.h"
 	<fstream>
 	<vector>
 	<map>
 
-1555841449 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\sicdisassembler.cpp
+1555832028 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\opgen.cpp
+	"OpGen.h"
+
+1555918369 source:c:\users\tristan\desktop\sdsu files\spring 2019\cs530\assignment2\cs530_a2\sicdisassembler.cpp
 	<stdlib.h>
 	"SicDisassembler.h"
 

@@ -1,3 +1,11 @@
+// Tristan Sizik    cssc0473    818006833
+// Sean Paz         cssc        820246863
+// Derek Barbosa    cssc        818690399
+//
+// CS 530, Spring 2019
+// Assignment #2: Disassembler (x mirror)
+// Converter.cpp
+
 #include <stdlib.h>
 #include "Converter.h"
 
@@ -10,12 +18,6 @@ int Converter::hexToInt(string value){
     for(int i = value.length() - 1; i >= 0; --i)
     {
         num += alpha.find(toupper(value[i])) * pow16;
-        /*if(num < 0)
-        {
-            printf("Error: Unknown Hex Value");
-            exit(EXIT_FAILURE);
-        }
-        */
         pow16 *= 16;
     }
     return num;

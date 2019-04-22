@@ -1,3 +1,11 @@
+// Tristan Sizik    cssc0473    818006833
+// Sean Paz         cssc          820246863
+// Derek Barbosa    cssc        818690399
+//
+// CS 530, Spring 2019
+// Assignment #2: Disassembler (x mirror)
+// Converter.h
+
 #ifndef __Converter__
 #define __Converter__
 

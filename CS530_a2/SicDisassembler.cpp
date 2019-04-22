@@ -1,3 +1,11 @@
+// Tristan Sizik    cssc0473    818006833
+// Sean Paz         cssc          820246863
+// Derek Barbosa    cssc        818690399
+//
+// CS 530, Spring 2019
+// Assignment #2: Disassembler (x mirror)
+// SicDisassembler.cpp
+
 #define MAX_INPUT 20
 #include <stdlib.h>
 #include "SicDisassembler.h"
