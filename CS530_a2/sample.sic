@@ -1,0 +1,11 @@
+SUM       START       0000 
+FIRST  R  LDX          
+          LDA          
+          J            
+          STL          
+          COMPR        
+          ADD          
+          TIX          
+          JLT          
+          STA          
+          LDA          

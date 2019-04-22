@@ -47,7 +47,7 @@ void Disassemble::readFile(){
         } else printf("Unable to open Symtab file \n");
 
         // After reading file successfully. Run program:
-        printf("Dis-assembling %s ...\n\n", objName);
+        printf("Disassembling %s ...\n\n", objName);
 
         Disassemble::run();
     }
@@ -67,8 +67,8 @@ void Disassemble::run(){
                 if(symContent[i].substr(0,4)!= "Name" && isSym == true)     //start with symtab, then once you reach "name" to initialize littab we switch over
                 {
                     string symbol = symContent[i].substr(0,6); // take the symbol names
-                    symbol += symContent[i].substr(16,1);
-                    // take the address of the symbol table and convert it to in
+                    symbol += (" " + symContent[i].substr(16,1));
+                    // take the address of the symbol table and convert it to int
                     int symAddr = Converter::hexToInt(symContent[i].substr(8,6));
                     symElement[symAddr] = symbol;
                     directive[symAddr] = symbol;
@@ -94,11 +94,12 @@ void Disassemble::run(){
 
     printf("Symbol table: \n");
     for (it = symElement.begin(); it != symElement.end(); ++it)
-        cout << it->first << "  " << it->second << "\n";
+        cout << it->first << "\t " << it->second << "\n";
+        //printf("%-7i %-7i \n", it->first, it->second);
 
     printf("\nLiteral table: \n");
     for (it = litElement.begin(); it != litElement.end(); ++it)
-        cout << it->first << "  " << it->second << "\n";
+        cout << it->first << "\t " << it->second << "\n";
 
     /*-------------------------Dis-assemble---------------------------------*/
     printf("\nDis-assembling...\n\n");
