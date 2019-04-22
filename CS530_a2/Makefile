@@ -1,3 +1,7 @@
+// Tristan Sizik    cssc0473    818006833
+// Sean Paz         cssc    820246863
+// Derek Barbosa    cssc0410    818690399
+
 CC = g++
 CFLAGS = -g
 LDFLAGS = -lm
